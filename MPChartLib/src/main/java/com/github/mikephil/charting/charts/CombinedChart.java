@@ -42,6 +42,8 @@ public class CombinedChart extends BarLineChartBase<CombinedData> implements Com
      */
     private boolean mDrawBarShadow = false;
 
+    private boolean mDrawRoundedBar = false;
+
     protected DrawOrder[] mDrawOrder;
 
     /**
@@ -196,6 +198,8 @@ public class CombinedChart extends BarLineChartBase<CombinedData> implements Com
         mHighlightFullBarEnabled = enabled;
     }
 
+    public void setmDrawRoundedBar(boolean enabled) { mDrawRoundedBar = enabled; }
+
     /**
      * @return true the highlight operation is be full-bar oriented, false if single-value
      */
@@ -203,6 +207,9 @@ public class CombinedChart extends BarLineChartBase<CombinedData> implements Com
     public boolean isHighlightFullBarEnabled() {
         return mHighlightFullBarEnabled;
     }
+
+    @Override
+    public boolean isDrawRoundedBarEnabled() { return mDrawRoundedBar; }
 
     /**
      * Returns the currently set draw order.

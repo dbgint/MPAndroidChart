@@ -38,6 +38,8 @@ public class BarChart extends BarLineChartBase<BarData> implements BarDataProvid
 
     private boolean mFitBars = false;
 
+    private boolean mDrawRoundedBar = false;
+
     public BarChart(Context context) {
         super(context);
     }
@@ -208,6 +210,9 @@ public class BarChart extends BarLineChartBase<BarData> implements BarDataProvid
         return mHighlightFullBarEnabled;
     }
 
+    public void setDrawRoundedBar(boolean enabled) { mDrawRoundedBar = enabled; }
+
+    public boolean isDrawRoundedBarEnabled() { return mDrawRoundedBar; }
     /**
      * Highlights the value at the given x-value in the given DataSet. Provide
      * -1 as the dataSetIndex to undo all highlighting.

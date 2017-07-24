@@ -4,6 +4,7 @@ package com.github.mikephil.charting.data;
 import android.graphics.Color;
 
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
+import com.github.mikephil.charting.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,8 @@ public class BarDataSet extends BarLineScatterCandleBubbleDataSet<BarEntry> impl
     private float mBarBorderWidth = 0.0f;
 
     private int mBarBorderColor = Color.BLACK;
+
+    private int mBarRoundingCorners = Utils.TOP_LEFT | Utils.TOP_RIGHT | Utils.BOTTOM_LEFT | Utils.BOTTOM_RIGHT;
 
     /**
      * the alpha value used to draw the highlight indicator bar
@@ -207,6 +210,9 @@ public class BarDataSet extends BarLineScatterCandleBubbleDataSet<BarEntry> impl
         return mBarBorderColor;
     }
 
+    public void setBarRoundingCorners(int corners) { mBarRoundingCorners = corners; }
+
+    public int getBarRoundingCorners() { return mBarRoundingCorners; }
     /**
      * Set the alpha value (transparency) that is used for drawing the highlight
      * indicator bar. min = 0 (fully transparent), max = 255 (fully opaque)

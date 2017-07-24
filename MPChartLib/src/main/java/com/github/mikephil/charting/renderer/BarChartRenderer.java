@@ -4,6 +4,7 @@ package com.github.mikephil.charting.renderer;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 
@@ -163,12 +164,23 @@ public class BarChartRenderer extends BarLineScatterCandleBubbleRenderer {
                 mRenderPaint.setColor(dataSet.getColor(j / 4));
             }
 
-            c.drawRect(buffer.buffer[j], buffer.buffer[j + 1], buffer.buffer[j + 2],
-                    buffer.buffer[j + 3], mRenderPaint);
+            if (mChart.isDrawRoundedBarEnabled()) {
+                float cornerRadius = (buffer.buffer[j+2] - buffer.buffer[j])/2;
+                Path roundedRect = Utils.RoundedRect(buffer.buffer[j], buffer.buffer[j+1],
+                        buffer.buffer[j+2], buffer.buffer[j + 3], cornerRadius, cornerRadius, dataSet.getBarRoundingCorners());
+                c.drawPath(roundedRect, mRenderPaint);
 
-            if (drawBorder) {
+                if (drawBorder) {
+                    c.drawPath(roundedRect, mBarBorderPaint);
+                }
+            } else {
                 c.drawRect(buffer.buffer[j], buffer.buffer[j + 1], buffer.buffer[j + 2],
-                        buffer.buffer[j + 3], mBarBorderPaint);
+                        buffer.buffer[j + 3], mRenderPaint);
+
+                if (drawBorder) {
+                    c.drawRect(buffer.buffer[j], buffer.buffer[j + 1], buffer.buffer[j + 2],
+                            buffer.buffer[j + 3], mBarBorderPaint);
+                }
             }
         }
     }
@@ -465,7 +477,16 @@ public class BarChartRenderer extends BarLineScatterCandleBubbleRenderer {
 
             setHighlightDrawPos(high, mBarRect);
 
-            c.drawRect(mBarRect, mHighlightPaint);
+            if (mChart.isDrawRoundedBarEnabled()) {
+                float cornerRadius = mBarRect.width()/2;
+                Path roundedRect = Utils.RoundedRect(mBarRect.left, mBarRect.top, mBarRect.right,
+                        mBarRect.bottom, cornerRadius, cornerRadius, set.getBarRoundingCorners());
+                c.drawPath(roundedRect, mHighlightPaint);
+            } else {
+                //c.drawRect(buffer.buffer[j], buffer.buffer[j + 1], buffer.buffer[j + 2],
+                //        buffer.buffer[j + 3], mRenderPaint);
+                c.drawRect(mBarRect, mHighlightPaint);
+            }
         }
     }
 

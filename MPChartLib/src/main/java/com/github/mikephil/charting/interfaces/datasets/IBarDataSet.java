@@ -45,6 +45,8 @@ public interface IBarDataSet extends IBarLineScatterCandleBubbleDataSet<BarEntry
      */
     int getBarBorderColor();
 
+    int getBarRoundingCorners();
+
     /**
      * Returns the alpha value (transparency) that is used for drawing the
      * highlight indicator.

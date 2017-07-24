@@ -2,10 +2,12 @@
 package com.github.mikephil.charting.utils;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -48,6 +50,10 @@ public abstract class Utils {
     @SuppressWarnings("unused")
     public final static float FLOAT_EPSILON = Float.intBitsToFloat(1);
 
+    public final static int TOP_RIGHT = 0b0001;
+    public final static int TOP_LEFT = 0b0010;
+    public final static int BOTTOM_LEFT = 0b0100;
+    public final static int BOTTOM_RIGHT = 0b1000;
     /**
      * initialize method, called inside the Chart.init() method.
      *
@@ -775,5 +781,56 @@ public abstract class Utils {
 
     public static int getSDKInt() {
         return android.os.Build.VERSION.SDK_INT;
+    }
+
+    public static Path RoundedRect(
+            float left, float top, float right, float bottom, float rx, float ry, int corners
+    ){
+        Path path = new Path();
+        if (rx < 0) rx = 0;
+        if (ry < 0) ry = 0;
+        float width = right - left;
+        float height = bottom - top;
+        if (rx > width / 2) rx = width / 2;
+        if (ry > height / 2) ry = height / 2;
+        float widthMinusCorners = (width - (2 * rx));
+        float heightMinusCorners = (height - (2 * ry));
+
+        path.moveTo(right, top + ry);
+        if ((corners & TOP_RIGHT) != 0)
+            path.rQuadTo(0, -ry, -rx, -ry);//top-right corner
+        else{
+            path.rLineTo(0, -ry);
+            path.rLineTo(-rx,0);
+        }
+        path.rLineTo(-widthMinusCorners, 0);
+        if ((corners & TOP_LEFT) != 0)
+            path.rQuadTo(-rx, 0, -rx, ry); //top-left corner
+        else{
+            path.rLineTo(-rx, 0);
+            path.rLineTo(0,ry);
+        }
+        path.rLineTo(0, heightMinusCorners);
+
+        if ((corners & BOTTOM_LEFT) != 0)
+            path.rQuadTo(0, ry, rx, ry);//bottom-left corner
+        else{
+            path.rLineTo(0, ry);
+            path.rLineTo(rx,0);
+        }
+
+        path.rLineTo(widthMinusCorners, 0);
+        if ((corners & BOTTOM_RIGHT) != 0)
+            path.rQuadTo(rx, 0, rx, -ry); //bottom-right corner
+        else{
+            path.rLineTo(rx,0);
+            path.rLineTo(0, -ry);
+        }
+
+        path.rLineTo(0, -heightMinusCorners);
+
+        path.close();//Given close, last lineto can be removed.
+
+        return path;
     }
 }
