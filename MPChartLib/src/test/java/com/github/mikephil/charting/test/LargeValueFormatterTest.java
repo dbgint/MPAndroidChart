@@ -32,49 +32,49 @@ public class LargeValueFormatterTest {
         assertEquals("500", result);
 
         result = formatter.getFormattedValue(1100f, null);
-        assertEquals("1.1k", result);
+        assertEquals("1.1K", result);
 
         result = formatter.getFormattedValue(10000f, null);
-        assertEquals("10k", result);
+        assertEquals("10K", result);
 
         result = formatter.getFormattedValue(10500f, null);
-        assertEquals("10.5k", result);
+        assertEquals("10.5K", result);
 
         result = formatter.getFormattedValue(100000f, null);
-        assertEquals("100k", result);
+        assertEquals("100K", result);
 
         result = formatter.getFormattedValue(1000000f, null);
-        assertEquals("1m", result);
+        assertEquals("1M", result);
 
         result = formatter.getFormattedValue(1500000f, null);
-        assertEquals("1.5m", result);
+        assertEquals("1.5M", result);
 
         result = formatter.getFormattedValue(9500000f, null);
-        assertEquals("9.5m", result);
+        assertEquals("9.5M", result);
 
         result = formatter.getFormattedValue(22200000f, null);
-        assertEquals("22.2m", result);
+        assertEquals("22.2M", result);
 
         result = formatter.getFormattedValue(222000000f, null);
-        assertEquals("222m", result);
+        assertEquals("222M", result);
 
         result = formatter.getFormattedValue(1000000000f, null);
-        assertEquals("1b", result);
+        assertEquals("1B", result);
 
         result = formatter.getFormattedValue(9900000000f, null);
-        assertEquals("9.9b", result);
+        assertEquals("9.9B", result);
 
         result = formatter.getFormattedValue(99000000000f, null);
-        assertEquals("99b", result);
+        assertEquals("99B", result);
 
         result = formatter.getFormattedValue(99500000000f, null);
-        assertEquals("99.5b", result);
+        assertEquals("99.5B", result);
 
         result = formatter.getFormattedValue(999000000000f, null);
-        assertEquals("999b", result);
+        assertEquals("999B", result);
 
         result = formatter.getFormattedValue(1000000000000f, null);
-        assertEquals("1t", result);
+        assertEquals("1T", result);
 
         formatter.setSuffix(new String[]{"", "k", "m", "b", "t", "q"}); // quadrillion support
         result = formatter.getFormattedValue(1000000000000000f, null);
