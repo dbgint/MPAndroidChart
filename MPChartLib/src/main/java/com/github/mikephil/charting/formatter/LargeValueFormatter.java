@@ -21,7 +21,7 @@ public class LargeValueFormatter implements IValueFormatter, IAxisValueFormatter
 {
 
     private static String[] SUFFIX = new String[]{
-            "", "k", "m", "b", "t"
+            "", "K", "M", "B", "T"
     };
     private static final int MAX_LENGTH = 5;
     private DecimalFormat mFormat;
