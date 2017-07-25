@@ -198,7 +198,7 @@ public class CombinedChart extends BarLineChartBase<CombinedData> implements Com
         mHighlightFullBarEnabled = enabled;
     }
 
-    public void setmDrawRoundedBar(boolean enabled) { mDrawRoundedBar = enabled; }
+    public void setDrawRoundedBar(boolean enabled) { mDrawRoundedBar = enabled; }
 
     /**
      * @return true the highlight operation is be full-bar oriented, false if single-value
