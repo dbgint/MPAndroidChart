@@ -67,7 +67,7 @@ public class YAxis extends AxisBase {
      * enum for the position of the y-labels relative to the chart
      */
     public enum YAxisLabelPosition {
-        OUTSIDE_CHART, INSIDE_CHART
+        OUTSIDE_CHART, INSIDE_CHART, OUTSIDE_OUTER_CHART
     }
 
     /**
@@ -75,6 +75,11 @@ public class YAxis extends AxisBase {
      */
     private AxisDependency mAxisDependency;
 
+    protected boolean mExtendGridlines = false;
+
+    public boolean getExtendGridlines() { return mExtendGridlines; }
+
+    public void setExtendGridlines(boolean value) { mExtendGridlines = value; }
     /**
      * the minimum width that the axis should take (in dp).
      * <p/>
@@ -350,8 +355,8 @@ public class YAxis extends AxisBase {
      * @return
      */
     public boolean needsOffset() {
-        if (isEnabled() && isDrawLabelsEnabled() && getLabelPosition() == YAxisLabelPosition
-                .OUTSIDE_CHART)
+        if (isEnabled() && isDrawLabelsEnabled() && getLabelPosition() != YAxisLabelPosition
+                .INSIDE_CHART)
             return true;
         else
             return false;

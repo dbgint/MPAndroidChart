@@ -69,6 +69,9 @@ public class YAxisRenderer extends AxisRenderer {
             if (labelPosition == YAxisLabelPosition.OUTSIDE_CHART) {
                 mAxisLabelPaint.setTextAlign(Align.RIGHT);
                 xPos = mViewPortHandler.offsetLeft() - xoffset;
+            } else if (labelPosition == YAxisLabelPosition.OUTSIDE_OUTER_CHART) {
+                mAxisLabelPaint.setTextAlign(Align.LEFT);
+                xPos = xoffset;
             } else {
                 mAxisLabelPaint.setTextAlign(Align.LEFT);
                 xPos = mViewPortHandler.offsetLeft() + xoffset;
@@ -79,6 +82,9 @@ public class YAxisRenderer extends AxisRenderer {
             if (labelPosition == YAxisLabelPosition.OUTSIDE_CHART) {
                 mAxisLabelPaint.setTextAlign(Align.LEFT);
                 xPos = mViewPortHandler.contentRight() + xoffset;
+            } else if (labelPosition == YAxisLabelPosition.OUTSIDE_OUTER_CHART) {
+                mAxisLabelPaint.setTextAlign(Align.RIGHT);
+                xPos = mViewPortHandler.getChartWidth() - xoffset;
             } else {
                 mAxisLabelPaint.setTextAlign(Align.RIGHT);
                 xPos = mViewPortHandler.contentRight() - xoffset;
@@ -138,7 +144,9 @@ public class YAxisRenderer extends AxisRenderer {
         if (mYAxis.isDrawGridLinesEnabled()) {
 
             int clipRestoreCount = c.save();
-            c.clipRect(getGridClippingRect());
+            if (!mYAxis.getExtendGridlines()) {
+                c.clipRect(getGridClippingRect());
+            }
 
             float[] positions = getTransformedPositions();
 
@@ -182,9 +190,20 @@ public class YAxisRenderer extends AxisRenderer {
      * @return
      */
     protected Path linePath(Path p, int i, float[] positions) {
+        float xoffset = mYAxis.getXOffset();
 
-        p.moveTo(mViewPortHandler.offsetLeft(), positions[i + 1]);
-        p.lineTo(mViewPortHandler.contentRight(), positions[i + 1]);
+        if (mYAxis.getExtendGridlines()) {
+            if (mYAxis.getAxisDependency() == AxisDependency.LEFT) {
+                p.moveTo(xoffset, positions[i + 1]);
+                p.lineTo(mViewPortHandler.contentRight(), positions[i + 1]);
+            } else {
+                p.moveTo(mViewPortHandler.offsetLeft(), positions[i + 1]);
+                p.lineTo(mViewPortHandler.getChartWidth() - xoffset, positions[i + 1]);
+            }
+        } else {
+            p.moveTo(mViewPortHandler.offsetLeft(), positions[i + 1]);
+            p.lineTo(mViewPortHandler.contentRight(), positions[i + 1]);
+        }
 
         return p;
     }
