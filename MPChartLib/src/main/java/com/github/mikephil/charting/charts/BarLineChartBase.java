@@ -79,6 +79,8 @@ public abstract class BarLineChartBase<T extends BarLineScatterCandleBubbleData<
      * if true, dragging is enabled for the chart
      */
     private boolean mDragEnabled = true;
+    private boolean mDragXEnabled = true;
+    private boolean mDragYEnabled = true;
 
     private boolean mScaleXEnabled = true;
     private boolean mScaleYEnabled = true;
@@ -164,7 +166,7 @@ public abstract class BarLineChartBase<T extends BarLineScatterCandleBubbleData<
 
         setHighlighter(new ChartHighlighter(this));
 
-        mChartTouchListener = new BarLineChartTouchListener(this, mViewPortHandler.getMatrixTouch(), 3f);
+        mChartTouchListener = new BarLineChartTouchListener(this, mViewPortHandler.getMatrixTouch(), 0f);
 
         mGridBackgroundPaint = new Paint();
         mGridBackgroundPaint.setStyle(Style.FILL);
@@ -1107,6 +1109,22 @@ public abstract class BarLineChartBase<T extends BarLineScatterCandleBubbleData<
      */
     public boolean isDragEnabled() {
         return mDragEnabled;
+    }
+
+    public void setDragXEnabled(boolean enabled) {
+        this.mDragXEnabled = enabled;
+    }
+
+    public boolean isDragXEnabled() {
+        return mDragXEnabled;
+    }
+
+    public void setDragYEnabled(boolean enabled) {
+        this.mDragYEnabled = enabled;
+    }
+
+    public boolean isDragYEnabled() {
+        return mDragYEnabled;
     }
 
     /**

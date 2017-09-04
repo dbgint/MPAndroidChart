@@ -162,6 +162,16 @@ public class BarLineChartTouchListener extends ChartTouchListener<BarLineChartBa
                 }
                 break;
             case MotionEvent.ACTION_MOVE:
+                mVelocityTracker.computeCurrentVelocity(1000);
+                float xVelocity = mVelocityTracker.getXVelocity();
+                float yVelocity = mVelocityTracker.getYVelocity();
+                if (!mChart.isDragYEnabled() && Math.abs(yVelocity) > Math.abs(xVelocity)
+                 || !mChart.isDragXEnabled() && Math.abs(yVelocity) < Math.abs(xVelocity)) {
+                    mChart.requestDisallowInterceptTouchEvent(false);
+                    return false;
+                } else {
+                    mChart.requestDisallowInterceptTouchEvent(true);
+                }
 
                 if (mTouchMode == DRAG) {
 
