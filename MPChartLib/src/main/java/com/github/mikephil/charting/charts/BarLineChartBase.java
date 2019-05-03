@@ -1139,22 +1139,6 @@ public abstract class BarLineChartBase<T extends BarLineScatterCandleBubbleData<
         return mDragYEnabled;
     }
 
-    public void setDragXEnabled(boolean enabled) {
-        this.mDragXEnabled = enabled;
-    }
-
-    public boolean isDragXEnabled() {
-        return mDragXEnabled;
-    }
-
-    public void setDragYEnabled(boolean enabled) {
-        this.mDragYEnabled = enabled;
-    }
-
-    public boolean isDragYEnabled() {
-        return mDragYEnabled;
-    }
-
     /**
      * Set this to true to enable scaling (zooming in and out by gesture) for
      * the chart (this does not effect dragging) on both X- and Y-Axis.
